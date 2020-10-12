@@ -11,6 +11,11 @@
 
 #include <Arduino.h>
 
-void RelaySwitch(uint8_t id, bool state);
+#define MAX_STATUSES  8
+
+bool RelayGetStatus(uint8_t id);
+void RelaySetStatus(uint8_t id, bool val);
+void RelaySwitchStatus(uint8_t id);
+void RelayUpdate(uint8_t id);
 
 #endif

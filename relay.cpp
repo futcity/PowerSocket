@@ -11,24 +11,37 @@
 #include "ports.h"
 #include "common.h"
 
-void RelaySwitch(uint8_t id, bool state)
+bool Statuses[MAX_STATUSES];
+
+/*
+ * Public functions
+ */
+
+bool RelayGetStatus(uint8_t id)
 {
-    if (state) {
-#ifndef INVERT_MODE
-        digitalWrite(Relays[id], HIGH);
-#else
-        digitalWrite(Relays[id], LOW);
-#endif
-        digitalWrite(Leds[id], HIGH);
+    return Statuses[id];
+}
+
+void RelaySetStatus(uint8_t id, bool val)
+{
+    Statuses[id] = val;
+}
+
+void RelaySwitchStatus(uint8_t id)
+{
+    Statuses[id] = !Statuses[id];
+}
+
+void RelayUpdate(uint8_t id)
+{
+    if (RelayGetStatus(id)) {
+        BoardRelaySwitch(id, true);
+        BoardLedSwitch(id, true);
         VirtualWriteSwitch(id, TRUE);
         LedWidgets[id]->on();
     } else {
-#ifndef INVERT_MODE
-        digitalWrite(Relays[id], LOW);
-#else
-        digitalWrite(Relays[id], HIGH);
-#endif
-        digitalWrite(Leds[id], LOW);
+        BoardRelaySwitch(id, false);
+        BoardLedSwitch(id, false);
         VirtualWriteSwitch(id, FALSE);
         LedWidgets[id]->off();
     }

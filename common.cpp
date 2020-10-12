@@ -11,14 +11,3 @@
 WiFiClient Client;
 BlynkArduinoClient Transport(Client);
 BlynkWifi Blynk(Transport);
-
-bool Statuses[] = {
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-};

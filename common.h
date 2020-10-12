@@ -28,6 +28,5 @@
 #define LED_OFF 0
 
 extern BlynkWifi Blynk;
-extern bool Statuses[];
 
 #endif

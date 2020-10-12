@@ -15,10 +15,10 @@
 
 static void ReadButton()
 {
-    for (uint8_t i = 0; i < BUTTONS_COUNT; i++) {
+    for (uint8_t i = 0; i < ButtonsCount; i++) {
         if (digitalRead(Buttons[i]) == LOW) {
-            Statuses[i] = !Statuses[i];
-            RelaySwitch(i, Statuses[i]);
+            RelaySwitchStatus(i);
+            RelayUpdate(i);
             delay(600);
         }
     }
@@ -26,20 +26,9 @@ static void ReadButton()
 
 void setup()
 {
+    BoardInit();
     PortsInit();
     Blynk.begin(DEVICE_KEY, WIFI_SSID, WIFI_PASSWD, BLYNK_SERVER, BLYNK_SERVER_PORT);
-
-    for (uint8_t i = 0; i < BUTTONS_COUNT; i++) {
-        pinMode(Buttons[i], INPUT_PULLUP);
-    }
-
-    for (uint8_t i = 0; i < LEDS_COUNT; i++) {
-        pinMode(Leds[i], OUTPUT);
-    }
-
-    for (uint8_t i = 0; i < RELAYS_COUNT; i++) {
-        pinMode(Relays[i], OUTPUT);
-    }
 }
 
 void loop()

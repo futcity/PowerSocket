@@ -11,18 +11,34 @@
 
 #include <Arduino.h>
 
-//#define BOARD_NODEMCU_V1
-#define BOARD_SONOFF_R2
-//#define BOARD_SONOFF_R3
+#define ARRAY_ITEMS_COUNT(_array) \
+        (sizeof (_array) / sizeof (*(_array)))
 
-//#define INVERT_MODE
+//#define BOARD_SONOFF_R2
+#define BOARD_NODEMCU_R4
 
-#define RELAYS_COUNT    1
-#define BUTTONS_COUNT   1
-#define LEDS_COUNT      1
+typedef enum {
+    STATUS_LED
+} LedType;
+
+typedef enum {
+    MAIN_BUTTON
+} ButtonType;
+
+typedef enum {
+    MAIN_RELAY
+} RelayType;
+
+extern uint8_t ButtonsCount;
+extern uint8_t RelaysCount;
+extern uint8_t LedsCount;
 
 extern uint8_t Buttons[];
 extern uint8_t Relays[];
 extern uint8_t Leds[];
+
+void BoardInit();
+void BoardRelaySwitch(uint8_t id, bool state);
+void BoardLedSwitch(uint8_t id, bool state);
 
 #endif
